@@ -6,11 +6,14 @@
 using namespace std;
 
 namespace ariel {
-
+static string const endings[] = {"km","m","cm","hour","min","sec","ton","kg","g"};
 class PhysicalNumber{
     private:
     Unit u;
     double num;
+
+    bool sameUnit(const PhysicalNumber&);
+    double unit_Converter(PhysicalNumber& ,PhysicalNumber&);
     
     public:
     PhysicalNumber(double num,Unit u);
@@ -29,7 +32,7 @@ class PhysicalNumber{
     bool operator<= (const PhysicalNumber&) ;
     bool operator== (const PhysicalNumber&) ;
     bool operator!= (const PhysicalNumber&) ;
-    
+
     PhysicalNumber operator++();//++i
     PhysicalNumber operator++(int);//i++
     PhysicalNumber operator--();//--i
