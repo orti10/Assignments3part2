@@ -12,14 +12,16 @@ using namespace ariel;
     //A+B
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
         cout<<"unit p1 "<<p1.u<<"unit this "<<this->u<<endl;
-        if(!this->sameUnit(p1)) throw runtime_error("not the same family unit can not convert12");
+        this->sameUnit(p1);////check if there is a reason to throw and exception
+        
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num+unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
     }
     //A-B
 	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
-	     if(!this->sameUnit(p1)) throw "not the same family unit can not convert";
+	    this->sameUnit(p1); //check if there is a reason to throw and exception
+        
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num-unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
@@ -48,56 +50,56 @@ using namespace ariel;
     } 
 
     bool PhysicalNumber::operator> (const PhysicalNumber &other){
-        if(!sameUnit(other)) throw "not the same family unit can not comper";
-        else{
+        sameUnit(other);//check if there is a reason to throw and exception
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
             return ans>this->num;
-        }
+        
     }
 
     bool PhysicalNumber::operator< (const PhysicalNumber& other){
-        if(!sameUnit(other)) throw "not the same family unit can not comper";
-        else{
+        sameUnit(other);//check if there is a reason to throw and exception
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
             return ans<this->num;
-        }
+        
     }
     bool PhysicalNumber::operator>= (const PhysicalNumber& other){
-        if(!sameUnit(other)) throw "not the same family unit can not comper";
-        else{
+        sameUnit(other);//check if there is a reason to throw and exception
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 && p1==p2){
                 return false;
             }
             return true;
-        }
+        
     }
     bool PhysicalNumber::operator<= (const PhysicalNumber& other){
-        if(!sameUnit(other)) throw "not the same family unit can not comper";
-        else{
+        sameUnit(other);//check if there is a reason to throw and exception
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1<p2 && p1==p2){
                 return false;
             }
             return true;
-        }
+        
     }
     bool PhysicalNumber::operator== (const PhysicalNumber& other){
-        if(!sameUnit(other)) throw "not the same family unit can not comper";
-        else{
+        sameUnit(other);//check if there is a reason to throw and exception
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 || p1<p2){
                 return false;
             }
             return true;
-        }
+        
     }
     bool PhysicalNumber::operator!= (const PhysicalNumber& other){
        return (*this==other);
