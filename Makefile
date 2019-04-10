@@ -1,4 +1,3 @@
-
 #!make -f
 
 all: test

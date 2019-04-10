@@ -16,7 +16,7 @@ class PhysicalNumber{
     double unit_Converter(PhysicalNumber& ,PhysicalNumber&);
     
     public:
-    PhysicalNumber(double num,Unit u);
+    PhysicalNumber(double number,Unit unit);
     PhysicalNumber(const PhysicalNumber& pn);
 
     const PhysicalNumber operator+(const PhysicalNumber&); 
