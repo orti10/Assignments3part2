@@ -14,10 +14,13 @@ class PhysicalNumber{
 
     bool sameUnit(const PhysicalNumber&);
     double unit_Converter(PhysicalNumber& ,PhysicalNumber&);
+    friend istream& checkInputUnit(istream& is, PhysicalNumber& pn);
     
     public:
     PhysicalNumber(double number,Unit unit);
     PhysicalNumber(const PhysicalNumber& pn);
+    void setData(double);
+    void setUnit(Unit);
 
     const PhysicalNumber operator+(const PhysicalNumber&); 
 	const PhysicalNumber operator-(const PhysicalNumber&);
@@ -41,7 +44,7 @@ class PhysicalNumber{
     
     friend ostream& operator<< (ostream& os, const PhysicalNumber& c);//פלט
     friend istream& operator>> (istream& is, PhysicalNumber& c);//קלט
-    
+   
     };
 }
 #endif

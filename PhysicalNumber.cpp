@@ -11,7 +11,8 @@ using namespace ariel;
     
     //A+B
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
-        if(!this->sameUnit(p1)) throw "not the same family unit can not convert";
+        cout<<"unit p1 "<<p1.u<<"unit this "<<this->u<<endl;
+        if(!this->sameUnit(p1)) throw runtime_error("not the same family unit can not convert12");
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num+unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
@@ -26,8 +27,9 @@ using namespace ariel;
     //A=A+B
 	PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber &p1){
 	  PhysicalNumber pn =(*this+p1); //using +operator we wrote
-      num =pn.num;
-      cout<<"pn is"<<pn.u <<"this is"<<this->u <<"p1 is"<<p1.u;
+      cout<<pn.num<<"fsdfsdfsdf"<<endl;
+      this->num =pn.num;
+     
         return *this;
 	}
     //A=A-B
@@ -129,8 +131,52 @@ using namespace ariel;
     return os ;
 
     }
-  istream &ariel::operator>> (istream& is, PhysicalNumber& c){
-	return is;
+//   istream &ariel::operator>> (istream& is, PhysicalNumber& c){
+// 	return is;
+// }
+
+std::istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
+    string str;
+    long double d;
+    ios::pos_type sp = is.tellg();
+    if(!(is >> d) || !(checkInputUnit(is, pn))) {
+        auto es = is.rdstate();
+        is.clear();
+        is.seekg(sp);
+        is.clear(es);
+    }
+    else {
+        pn.setData(d);
+    }
+    
+    return is;
+}
+void PhysicalNumber::setData(double d) { num = d; }
+void PhysicalNumber::setUnit(Unit u) { u = u; }
+istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
+    string s;
+    int i, j;
+    is >> s;
+    i = s.find('[');
+    j = s.find(']');
+    if(!is) { return is; }
+    if((i == -1) || (j == -1)) { 
+        is.setstate(ios::failbit);
+        return is; 
+    }
+    s = s.substr(i+1, j-1);
+    if(s.compare("km") == 0) { pn.setUnit(Unit::KM); }
+    else if(s.compare("m") == 0) { pn.setUnit(Unit::M); }
+    else if(s.compare("cm") == 0) { pn.setUnit(Unit::M); }
+    else if(s.compare("ton") == 0) { pn.setUnit(Unit::TON); }
+    else if(s.compare("kg") == 0) { pn.setUnit(Unit::KG); }
+    else if(s.compare("g") == 0) { pn.setUnit(Unit::G); }
+    else if(s.compare("hour") == 0) { pn.setUnit(Unit::HOUR); }
+    else if(s.compare("min") == 0) { pn.setUnit(Unit::MIN); }
+    else if(s.compare("sec") == 0) { pn.setUnit(Unit::SEC); }
+    else{ is.setstate(ios:: failbit); }
+
+    return is;
 }
 
 //private functions:
@@ -139,14 +185,17 @@ using namespace ariel;
  bool PhysicalNumber::sameUnit(const PhysicalNumber& other){ 
      //first family unit
      if((other.u >=0 && other.u<=2) && (this->u >=0 && this->u<=2)){
+       
          return true;
      }
      //second family unit
      else if((other.u >=3 && other.u<=5) && (this->u >=3 && this->u<=5)){
+        
          return true;
      }
      //third family unit
      else if((other.u >=6 && other.u<=5) && (this->u >=3 && this->u<=8)){
+        
          return true;
      }
      else return false;
@@ -154,7 +203,7 @@ using namespace ariel;
 
 //checking if the given Physical Numbers can be convert
 double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right){
-      if(!left.sameUnit(right)) throw "not the same family unit can not convert";
+      if(!left.sameUnit(right)) throw runtime_error("not the same family unit can not convert1");
       switch (left.u){
             case KM:
             switch(right.u){ 
@@ -171,7 +220,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert2");
             }
             break;
             case M:
@@ -190,7 +239,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
               
                 default:
-                throw "the values are not the same type";
+               throw runtime_error("not the same family unit can not convert3");
                 
             }
             break;            
@@ -210,7 +259,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
 
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert4");
             }
             break;
 
@@ -230,7 +279,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert5");
             }
             break;
             case MIN:
@@ -249,7 +298,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert6");
             }
             break;
             case SEC:
@@ -268,7 +317,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                 
                 default:
-                throw "the values are not the same type";
+               throw runtime_error("not the same family unit can not convert7");
             }
             break;
             case TON:
@@ -288,7 +337,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
 
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert8");
             }
             break;
             case KG:
@@ -307,7 +356,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                 
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert9");
             }
             break; 
             case G:
@@ -326,7 +375,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                
                 default:
-                throw "the values are not the same type";
+                throw runtime_error("not the same family unit can not convert10");
             }
             break;
     }
