@@ -42,8 +42,8 @@ class PhysicalNumber{
     PhysicalNumber operator--(int);//i--
     
     
-    friend ostream& operator<< (ostream& os, const PhysicalNumber& c);//פלט
-    friend istream& operator>> (istream& is, PhysicalNumber& c);//קלט
+    friend ostream& operator<< (ostream& os, const PhysicalNumber& c);//output
+    friend istream& operator>> (istream& is, PhysicalNumber& c);//input
    
     };
 }

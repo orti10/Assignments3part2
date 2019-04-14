@@ -11,25 +11,27 @@ using namespace ariel;
     
     //A+B
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
-        cout<<"unit p1 "<<p1.u<<"unit this "<<this->u<<endl;
-        this->sameUnit(p1);////check if there is a reason to throw and exception
+        if(this->sameUnit(p1)==true){////check if there is a reason to throw and exception
         
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num+unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
+        }
+        else throw runtime_error("not the same family unit can not convert18");
     }
     //A-B
 	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
-	    this->sameUnit(p1); //check if there is a reason to throw and exception
+	   if(this->sameUnit(p1)==true){ //check if there is a reason to throw and exception
         
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num-unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
+       }
+       else throw runtime_error("not the same family unit can not convert19");
 	}
     //A=A+B
 	PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber &p1){
-	  PhysicalNumber pn =(*this+p1); //using +operator we wrote
-      cout<<pn.num<<"fsdfsdfsdf"<<endl;
+      PhysicalNumber pn =(*this+p1); //using +operator we wrote
       this->num =pn.num;
      
         return *this;
@@ -46,63 +48,71 @@ using namespace ariel;
     }
     //-A 
 	PhysicalNumber PhysicalNumber::operator-(){// Unari
-        return PhysicalNumber(-num,u); //the num turns minus
+        return PhysicalNumber(-num,u); //the num turns minus signed
     } 
 
-    bool PhysicalNumber::operator> (const PhysicalNumber &other){
-        sameUnit(other);//check if there is a reason to throw and exception
+    bool PhysicalNumber::operator>(const PhysicalNumber &other){
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");//check if there is a reason to throw and exception
         
+        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            return ans>this->num;
+            return (this->num)>ans; 
         
+         return false;
+        }
     }
 
-    bool PhysicalNumber::operator< (const PhysicalNumber& other){
-        sameUnit(other);//check if there is a reason to throw and exception
-        
+    bool PhysicalNumber::operator<(const PhysicalNumber& other){
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert45");//check if there is a reason to throw and exception
+        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            return ans<this->num;
+            return (this->num)<ans;
         
+         return false;
+        }
     }
-    bool PhysicalNumber::operator>= (const PhysicalNumber& other){
-        sameUnit(other);//check if there is a reason to throw and exception
-        
+    bool PhysicalNumber::operator>=(const PhysicalNumber& other){
+        if(sameUnit(other)==false)throw runtime_error("not the same family unit can not convert44");//check if there is a reason to throw and exception
+        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 && p1==p2){
-                return false;
+                return true;
             }
-            return true;
+            return false;
+        }
         
     }
-    bool PhysicalNumber::operator<= (const PhysicalNumber& other){
-        sameUnit(other);//check if there is a reason to throw and exception
-        
+    bool PhysicalNumber::operator<=(const PhysicalNumber& other){
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert43");//check if there is a reason to throw and exception
+        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1<p2 && p1==p2){
-                return false;
+                return true;
             }
-            return true;
-        
+            return false;
+        }
     }
-    bool PhysicalNumber::operator== (const PhysicalNumber& other){
-        sameUnit(other);//check if there is a reason to throw and exception
-        
+    bool PhysicalNumber::operator==(const PhysicalNumber& other){
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert41");//check if there is a reason to throw and exception
+        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 || p1<p2){
                 return false;
             }
             return true;
+        }
         
     }
-    bool PhysicalNumber::operator!= (const PhysicalNumber& other){
-       return (*this==other);
+    bool PhysicalNumber::operator!=(const PhysicalNumber& other){ //using == operator
+       if(*this==other) return false;
+       return true;
     }
     //++A
     PhysicalNumber PhysicalNumber::operator++(){//++i first add and then print
@@ -116,12 +126,12 @@ using namespace ariel;
         return *this;
     }
     //--A
-    PhysicalNumber PhysicalNumber::operator--(){//--i
+    PhysicalNumber PhysicalNumber::operator--(){//--i first subtracting and then print
         num--;
         return *this;
     }
     //A--
-    PhysicalNumber PhysicalNumber::operator--(int){//i--
+    PhysicalNumber PhysicalNumber::operator--(int){//i-- firts print and then subtracting
         PhysicalNumber pn(*this);
         num--;
         
@@ -191,22 +201,25 @@ istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
          return true;
      }
      //second family unit
-     else if((other.u >=3 && other.u<=5) && (this->u >=3 && this->u<=5)){
+        else if((other.u >=3 && other.u<=5) && (this->u >=3 && this->u<=5)){
         
-         return true;
+                return true;
      }
      //third family unit
-     else if((other.u >=6 && other.u<=5) && (this->u >=3 && this->u<=8)){
+                else if((other.u >=6 && other.u<=8) && (this->u >=6 && this->u<=8)){
         
-         return true;
+                         return true;
      }
      else return false;
 }
 
 //checking if the given Physical Numbers can be convert
 double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right){
-      if(!left.sameUnit(right)) throw runtime_error("not the same family unit can not convert1");
-      switch (left.u){
+      if(left.sameUnit(right)==false) {
+          throw runtime_error("not the same family unit can not convert1");
+      }
+      else{
+           switch (left.u){
             case KM:
             switch(right.u){ 
                 case KM:
@@ -330,7 +343,6 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;  
                
                 case KG:
-                cout<<"int ton->kg";
                 return right.num/1000;//was*
                 break;
                 
@@ -350,11 +362,11 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;  
                 
                 case TON:
-                return right.num/1000;
+                return right.num*1000;
                 break;
                 
                 case G:
-                return right.num*1000;
+                return right.num/1000;
                 break;
                 
                 default:
@@ -369,7 +381,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;  
                 
                 case KG:
-                return right.num/1000;
+                return right.num*1000;
                 break;
                 
                 case TON:
@@ -380,6 +392,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 throw runtime_error("not the same family unit can not convert10");
             }
             break;
+        }   
     }
-
 }
+     
