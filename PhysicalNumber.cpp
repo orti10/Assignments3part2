@@ -146,13 +146,40 @@ using namespace ariel;
     }
     
    ostream &ariel::operator<< (ostream& os, const PhysicalNumber& c){//output
-    os << c.num << "[" << endings[c.u] << "]";
-    return os ;
-
+    PhysicalNumber pn (c.num,c.u);
+    string str;
+    switch (pn.u) {
+        case Unit::KM :
+            str = "km";
+            break;
+        case Unit::M :
+            str = "m";
+            break;
+        case Unit::CM :
+            str = "cm";
+            break;
+        case Unit::HOUR :
+            str = "hour";
+            break;
+        case Unit::MIN :
+            str = "min";
+            break;
+        case Unit::SEC :
+            str = "sec";
+            break;
+        case Unit::TON :
+            str = "ton";
+            break;
+        case Unit::KG :
+            str = "kg";
+            break;
+        case Unit::G :
+            str = "g";
+            break;
     }
-//   istream &ariel::operator>> (istream& is, PhysicalNumber& c){
-// 	return is;
-// }
+    return os << pn.num << "[" << str << "]";
+    }
+
 
 std::istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
     string str;
