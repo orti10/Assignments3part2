@@ -11,23 +11,23 @@ using namespace ariel;
     
     //A+B
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
-        if(this->sameUnit(p1)==true){////check if there is a reason to throw and exception
-        
+        //check if there is a reason to throw and exception
+        if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
+        else{
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num+unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
         }
-        else throw runtime_error("not the same family unit can not convert18");
     }
     //A-B
 	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
-	   if(this->sameUnit(p1)==true){ //check if there is a reason to throw and exception
-        
+        //check if there is a reason to throw and exception
+	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
+        else{
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num-unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
        }
-       else throw runtime_error("not the same family unit can not convert19");
 	}
     //A=A+B
 	PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber &p1){
@@ -40,6 +40,7 @@ using namespace ariel;
 	PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber &p1){
         PhysicalNumber pn =(*this-p1);//using -operator we wrote
         num =pn.num;
+        
         return *this;	
     }
     //+A
@@ -52,31 +53,34 @@ using namespace ariel;
     } 
 
     bool PhysicalNumber::operator>(const PhysicalNumber &other){
-        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");//check if there is a reason to throw and exception
+        //check if there is a reason to throw and exception
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");
         
         else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            return (this->num)>ans; 
+            if((this->num)>ans) return true; 
         
          return false;
         }
     }
 
     bool PhysicalNumber::operator<(const PhysicalNumber& other){
-        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert45");//check if there is a reason to throw and exception
+        //check if there is a reason to throw and exception
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert45");
         else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            return (this->num)<ans;
+            if((this->num)<ans) return true;
         
          return false;
         }
     }
     bool PhysicalNumber::operator>=(const PhysicalNumber& other){
-        if(sameUnit(other)==false)throw runtime_error("not the same family unit can not convert44");//check if there is a reason to throw and exception
+        //check if there is a reason to throw and exception
+        if(sameUnit(other)==false)throw runtime_error("not the same family unit can not convert44");
         else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
@@ -88,8 +92,10 @@ using namespace ariel;
         
     }
     bool PhysicalNumber::operator<=(const PhysicalNumber& other){
-        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert43");//check if there is a reason to throw and exception
-        else{
+        //check if there is a reason to throw and exception
+        
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert43");
+            else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1<p2 && p1==p2){
@@ -99,7 +105,8 @@ using namespace ariel;
         }
     }
     bool PhysicalNumber::operator==(const PhysicalNumber& other){
-        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert41");//check if there is a reason to throw and exception
+        //check if there is a reason to throw and exception
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert41");
         else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
