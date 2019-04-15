@@ -10,19 +10,21 @@ using namespace ariel;
     PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn):num(pn.num),u(pn.u){}
     
     //A+B
-    const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1)const{
+    const PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
-        if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
+        PhysicalNumber thispn =PhysicalNumber(this->num,this->u);
+        if(thispn.sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
         
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
-        double new_value= this->num+unit_Converter(*this,pn);
+        double new_value= thispn.num + unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
         
     }
     //A-B
-	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1)const{
+	const PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
-	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
+	   
+       if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
         
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num-unit_Converter(*this,pn);
@@ -30,14 +32,14 @@ using namespace ariel;
        
 	}
     //A=A+B
-	PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber &p1){
+	PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber &p1){
       PhysicalNumber pn =(*this+p1); //using +operator we wrote
       this->num =pn.num;
      
         return *this;
 	}
     //A=A-B
-	PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber &p1){
+	PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber &p1){
         PhysicalNumber pn =(*this-p1);//using -operator we wrote
         
         this->num =pn.num;
@@ -45,19 +47,19 @@ using namespace ariel;
         return *this;	
     }
     //+A
-    const PhysicalNumber PhysicalNumber::operator+()const{// Unari
+    const PhysicalNumber ariel::PhysicalNumber::operator+()const{// Unari
         if(this->num <0){
             return PhysicalNumber(num*(-1),u);
         }
         return *this;
     }
     //-A 
-	const PhysicalNumber PhysicalNumber::operator-()const{// Unari
+	const PhysicalNumber ariel::PhysicalNumber::operator-()const{// Unari
 
             return PhysicalNumber(num*(-1),u); //the num turns minus signed
     } 
 
-    bool PhysicalNumber::operator>(const PhysicalNumber &other){
+    bool ariel::PhysicalNumber::operator>(const PhysicalNumber &other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");
         
@@ -71,7 +73,7 @@ using namespace ariel;
         
     }
 
-    bool PhysicalNumber::operator<(const PhysicalNumber& other){
+    bool ariel::PhysicalNumber::operator<(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert45");
         
@@ -83,7 +85,7 @@ using namespace ariel;
          return false;
         
     }
-    bool PhysicalNumber::operator>=(const PhysicalNumber& other){
+    bool ariel::PhysicalNumber::operator>=(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false)throw runtime_error("not the same family unit can not convert44");
         else{
@@ -96,7 +98,7 @@ using namespace ariel;
         }
         
     }
-    bool PhysicalNumber::operator<=(const PhysicalNumber& other){
+    bool ariel::PhysicalNumber::operator<=(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert43");
@@ -109,7 +111,7 @@ using namespace ariel;
             return false;
         }
     }
-    bool PhysicalNumber::operator==(const PhysicalNumber& other){
+    bool ariel::PhysicalNumber::operator==(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert41");
         else{
@@ -122,28 +124,28 @@ using namespace ariel;
         }
         
     }
-    bool PhysicalNumber::operator!=(const PhysicalNumber& other){ //using == operator
+    bool ariel::PhysicalNumber::operator!=(const PhysicalNumber& other){ //using == operator
        if(*this==other) return false;
        return true;
     }
     //++A
-    PhysicalNumber PhysicalNumber::operator++(){//++i first add and then print
+    PhysicalNumber ariel::PhysicalNumber::operator++(){//++i first add and then print
         num++;
 	    return *this;
     }
     //++A
-    PhysicalNumber PhysicalNumber::operator++(int){//i++ first print and then add
+    PhysicalNumber ariel::PhysicalNumber::operator++(int){//i++ first print and then add
         PhysicalNumber pn(*this);
         num++;
         return *this;
     }
     //--A
-    PhysicalNumber PhysicalNumber::operator--(){//--i first subtracting and then print
+    PhysicalNumber ariel::PhysicalNumber::operator--(){//--i first subtracting and then print
         num--;
         return *this;
     }
     //A--
-    PhysicalNumber PhysicalNumber::operator--(int){//i-- firts print and then subtracting
+    PhysicalNumber ariel::PhysicalNumber::operator--(int){//i-- firts print and then subtracting
         PhysicalNumber pn(*this);
         num--;
         
