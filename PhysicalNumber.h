@@ -18,7 +18,7 @@ class PhysicalNumber{
     public:
      Unit u;
     double num;
-    PhysicalNumber( double number, Unit unit);//consts 2
+    PhysicalNumber(const double number,const Unit unit);//consts 2
     PhysicalNumber(const PhysicalNumber& pn);
     void setData(double);
     void setUnit(Unit);
