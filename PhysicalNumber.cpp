@@ -6,7 +6,7 @@ using namespace std;
 using namespace ariel;
 
     //constructors
-    PhysicalNumber::PhysicalNumber(double number,Unit unit){
+    PhysicalNumber::PhysicalNumber(const double number,const Unit unit){
          this->u=unit;
         this->num=number;
     }
