@@ -9,21 +9,22 @@ namespace ariel {
 static string const endings[] = {"km","m","cm","hour","min","sec","ton","kg","g"};
 class PhysicalNumber{
     private:
-    Unit u;
-    double num;
+   
 
     bool sameUnit(const PhysicalNumber&);
     double unit_Converter(PhysicalNumber& ,PhysicalNumber&);
     friend istream& checkInputUnit(istream& is, PhysicalNumber& pn);
     
     public:
+     Unit u;
+    double num;
     PhysicalNumber(double number,Unit unit);
     PhysicalNumber(const PhysicalNumber& pn);
     void setData(double);
     void setUnit(Unit);
 
-    const PhysicalNumber operator+(const PhysicalNumber&); 
-	const PhysicalNumber operator-(const PhysicalNumber&);
+    const PhysicalNumber operator+(const PhysicalNumber&)const; 
+	const PhysicalNumber operator-(const PhysicalNumber&)const;
 	PhysicalNumber& operator+=(const PhysicalNumber&);
 	PhysicalNumber& operator-=(const PhysicalNumber&);
 	PhysicalNumber operator+(); // Unari

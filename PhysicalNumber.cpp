@@ -10,7 +10,7 @@ using namespace ariel;
     PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn):num(pn.num),u(pn.u){}
     
     //A+B
-    const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
+    const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1)const{
         //check if there is a reason to throw and exception
         if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
         
@@ -20,7 +20,7 @@ using namespace ariel;
         
     }
     //A-B
-	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
+	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1)const{
         //check if there is a reason to throw and exception
 	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
         
