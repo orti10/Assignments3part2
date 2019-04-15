@@ -10,7 +10,7 @@ using namespace ariel;
     PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn):num(pn.num),u(pn.u){}
     
     //A+B
-    PhysicalNumber const PhysicalNumber::operator+(const PhysicalNumber& p1){
+    const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
         if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
         else{
@@ -20,7 +20,7 @@ using namespace ariel;
         }
     }
     //A-B
-	 PhysicalNumber const PhysicalNumber::operator-(const PhysicalNumber& p1){
+	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
 	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
         else{
@@ -321,11 +321,11 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;               
                
                 case M:
-                return right.num/1000;//was*
+                return right.num/1000;
                 break;
                 
                 case CM:
-                return right.num/100000;//was*
+                return right.num/100000;
                 break;
                
                 default:
@@ -344,7 +344,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                 
                 case CM:
-                return right.num*100;
+                return right.num/100;
                 break;
               
                 default:
@@ -360,11 +360,11 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;  
 
                 case KM:
-                return right.num/100000;
+                return right.num*100000;
                 break;
                 
                 case M:
-                return right.num/100;
+                return right.num*100;
                 break;
 
                 default:
@@ -437,11 +437,11 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;  
                
                 case KG:
-                return right.num/1000;//was*
+                return right.num/1000;
                 break;
                 
                 case G:
-                return right.num/1000000;//was*
+                return right.num/1000000;
                 break;
 
                 default:
@@ -479,7 +479,7 @@ double PhysicalNumber::unit_Converter(PhysicalNumber& left,PhysicalNumber& right
                 break;
                 
                 case TON:
-                return right.num/1000000;
+                return right.num*1000000;
                 break;
                
                 default:
