@@ -13,21 +13,21 @@ using namespace ariel;
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
         if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
-        else{
+        
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num+unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
-        }
+        
     }
     //A-B
 	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
 	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
-        else{
+        
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
         double new_value= this->num-unit_Converter(*this,pn);
         return PhysicalNumber(new_value,u);
-       }
+       
 	}
     //A=A+B
 	PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber &p1){
@@ -53,7 +53,7 @@ using namespace ariel;
     }
     //-A 
 	PhysicalNumber PhysicalNumber::operator-(){// Unari
-    
+
             return PhysicalNumber(num*(-1),u); //the num turns minus signed
     } 
 
@@ -61,27 +61,27 @@ using namespace ariel;
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");
         
-        else{
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
             if((this->num)>ans) return true; 
         
          return false;
-        }
+        
     }
 
     bool PhysicalNumber::operator<(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert45");
-        else{
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
             return this->num<ans;
         
          return false;
-        }
+        
     }
     bool PhysicalNumber::operator>=(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
