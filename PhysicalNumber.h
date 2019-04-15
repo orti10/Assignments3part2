@@ -47,6 +47,7 @@ class PhysicalNumber{
     friend istream& operator>> (istream& is, PhysicalNumber& c);//input
    
     };
-    
+     ostream& operator<< (ostream& os, const PhysicalNumber& c);//output
+     istream& operator>> (istream& is, PhysicalNumber& c);//input
 }
 #endif
