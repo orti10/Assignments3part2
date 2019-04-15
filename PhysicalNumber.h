@@ -13,7 +13,7 @@ class PhysicalNumber{
     double num;
 
     bool sameUnit(const PhysicalNumber&);
-    double unit_Converter(PhysicalNumber& ,PhysicalNumber&);
+    double unit_Converter(PhysicalNumber& ,PhysicalNumber&)const;
     friend istream& checkInputUnit(istream& is, PhysicalNumber& pn);
     
     public:
@@ -23,8 +23,8 @@ class PhysicalNumber{
     void setData(double);
     void setUnit(Unit);
 
-    const PhysicalNumber operator+(const PhysicalNumber&); 
-	const PhysicalNumber operator-(const PhysicalNumber&);
+    const PhysicalNumber operator+(const PhysicalNumber&)const; 
+	const PhysicalNumber operator-(const PhysicalNumber&)const;
 	PhysicalNumber& operator+=(const PhysicalNumber&);
 	PhysicalNumber& operator-=(const PhysicalNumber&);
 	const PhysicalNumber operator+()const; // Unari
