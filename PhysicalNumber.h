@@ -27,7 +27,9 @@ class PhysicalNumber{
 	const PhysicalNumber operator-(const PhysicalNumber& p1)const;
 	PhysicalNumber& operator+=(const PhysicalNumber& p1);
 	PhysicalNumber& operator-=(const PhysicalNumber& p1);
-	const PhysicalNumber operator+()const; // Unari
+	PhysicalNumber& operator=(const PhysicalNumber& p1);
+
+    const PhysicalNumber operator+()const; // Unari
 	const PhysicalNumber operator-()const; // Unari
 
     bool operator> (const PhysicalNumber& p1) ;

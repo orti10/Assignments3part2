@@ -34,7 +34,8 @@ using namespace ariel;
        if(thispn.sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
         
         PhysicalNumber pn =PhysicalNumber(p1.num,p1.u);
-        double new_value= this->num-unit_Converter(thispn,pn);
+        double new_value= this->num-1*(unit_Converter(thispn,pn));
+      
         return PhysicalNumber(new_value,u);
        
 	}
@@ -53,11 +54,18 @@ using namespace ariel;
         
         return *this;	
     }
+    PhysicalNumber& PhysicalNumber::operator=(const PhysicalNumber& p1){
+        this->num = p1.num;
+        this->u =p1.u;
+        return *this;
+    }
+
     //+A
     const PhysicalNumber PhysicalNumber::operator+()const{// Unari
         if(this->num <0){
             return PhysicalNumber(num*(-1),u);
         }
+        else
         return *this;
     }
     //-A 
@@ -93,6 +101,7 @@ using namespace ariel;
             if(p1>p2 || p1==p2){
                 return true;
             }
+            else
             return false;
      
     }
@@ -105,6 +114,7 @@ using namespace ariel;
             if(p1 == p2 || p1<p2){
                return true;
             }
+            else
             return false;
         
     }
@@ -117,6 +127,7 @@ using namespace ariel;
             if(p1>p2 || p1<p2){
                 return false;
             }
+            else
             return true;
         
     }
