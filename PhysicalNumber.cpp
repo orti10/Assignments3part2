@@ -66,10 +66,7 @@ using namespace ariel;
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            if((this->num)>ans) return true; 
-        
-         return false;
-        
+            return (this->num>ans) ;         
     }
 
     bool PhysicalNumber::operator<(const PhysicalNumber& other){
@@ -79,9 +76,7 @@ using namespace ariel;
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            return this->num<ans;
-        
-         return false;
+            return (this->num<ans);
         
     }
     bool PhysicalNumber::operator>=(const PhysicalNumber& other){
