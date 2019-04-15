@@ -45,14 +45,14 @@ using namespace ariel;
         return *this;	
     }
     //+A
-    PhysicalNumber PhysicalNumber::operator+(){// Unari
+    const PhysicalNumber PhysicalNumber::operator+()const{// Unari
         if(this->num <0){
             return PhysicalNumber(num*(-1),u);
         }
         return *this;
     }
     //-A 
-	PhysicalNumber PhysicalNumber::operator-(){// Unari
+	const PhysicalNumber PhysicalNumber::operator-()const{// Unari
 
             return PhysicalNumber(num*(-1),u); //the num turns minus signed
     } 

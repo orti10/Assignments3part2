@@ -18,7 +18,7 @@ class PhysicalNumber{
     public:
      Unit u;
     double num;
-    PhysicalNumber(double number,Unit unit);
+    PhysicalNumber( double number, Unit unit);//consts 2
     PhysicalNumber(const PhysicalNumber& pn);
     void setData(double);
     void setUnit(Unit);
@@ -27,8 +27,8 @@ class PhysicalNumber{
 	const PhysicalNumber operator-(const PhysicalNumber&)const;
 	PhysicalNumber& operator+=(const PhysicalNumber&);
 	PhysicalNumber& operator-=(const PhysicalNumber&);
-	PhysicalNumber operator+(); // Unari
-	PhysicalNumber operator-(); // Unari
+	const PhysicalNumber operator+()const; // Unari
+	const PhysicalNumber operator-()const; // Unari
 
     bool operator> (const PhysicalNumber&) ;
     bool operator< (const PhysicalNumber&) ;
@@ -47,5 +47,7 @@ class PhysicalNumber{
     friend istream& operator>> (istream& is, PhysicalNumber& c);//input
    
     };
+     ostream& operator<< (ostream& os, const PhysicalNumber& c);//output
+     istream& operator>> (istream& is, PhysicalNumber& c);//input
 }
 #endif
