@@ -12,35 +12,35 @@ class PhysicalNumber{
     Unit u;
     double num;
 
-    bool sameUnit(const PhysicalNumber&);
-    double unit_Converter(PhysicalNumber& ,PhysicalNumber&)const;
+    bool sameUnit(const PhysicalNumber& p1);
+    double unit_Converter(PhysicalNumber& p1 ,PhysicalNumber& p2)const;
     friend istream& checkInputUnit(istream& is, PhysicalNumber& pn);
     
     public:
     
     PhysicalNumber(const double number,const Unit unit);//consts 2
     PhysicalNumber(const PhysicalNumber& pn);
-    void setData(double);
-    void setUnit(Unit);
+    void setData(double d);
+    void setUnit(Unit u);
 
-    const PhysicalNumber operator+(const PhysicalNumber&)const; 
-	const PhysicalNumber operator-(const PhysicalNumber&)const;
-	PhysicalNumber& operator+=(const PhysicalNumber&);
-	PhysicalNumber& operator-=(const PhysicalNumber&);
+    const PhysicalNumber operator+(const PhysicalNumber& p1)const; 
+	const PhysicalNumber operator-(const PhysicalNumber& p1)const;
+	PhysicalNumber& operator+=(const PhysicalNumber& p1);
+	PhysicalNumber& operator-=(const PhysicalNumber& p1);
 	const PhysicalNumber operator+()const; // Unari
 	const PhysicalNumber operator-()const; // Unari
 
-    bool operator> (const PhysicalNumber&) ;
-    bool operator< (const PhysicalNumber&) ;
-    bool operator>= (const PhysicalNumber&) ;
-    bool operator<= (const PhysicalNumber&) ;
-    bool operator== (const PhysicalNumber&) ;
-    bool operator!= (const PhysicalNumber&) ;
+    bool operator> (const PhysicalNumber& p1) ;
+    bool operator< (const PhysicalNumber& p1) ;
+    bool operator>= (const PhysicalNumber& p1) ;
+    bool operator<= (const PhysicalNumber& p1) ;
+    bool operator== (const PhysicalNumber& p1) ;
+    bool operator!= (const PhysicalNumber& p1) ;
 
     PhysicalNumber operator++();//++i
-    PhysicalNumber operator++(int);//i++
+    PhysicalNumber operator++(int i);//i++
     PhysicalNumber operator--();//--i
-    PhysicalNumber operator--(int);//i--
+    PhysicalNumber operator--(int i);//i--
     
     
     friend ostream& operator<< (ostream& os, const PhysicalNumber& c);//output
