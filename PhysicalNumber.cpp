@@ -62,9 +62,7 @@ using namespace ariel;
 
     bool PhysicalNumber::operator>(const PhysicalNumber &other){
         //check if there is a reason to throw and exception
-        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");
-        
-        
+        if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert40");        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
@@ -89,40 +87,36 @@ using namespace ariel;
     bool PhysicalNumber::operator>=(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false)throw runtime_error("not the same family unit can not convert44");
-        else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 || p1==p2){
                 return true;
             }
             return false;
-        }
-        
+     
     }
     bool PhysicalNumber::operator<=(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert43");
-            else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1 == p2 || p1<p2){
                return true;
             }
             return false;
-        }
+        
     }
     bool PhysicalNumber::operator==(const PhysicalNumber& other){
         //check if there is a reason to throw and exception
         if(sameUnit(other)==false) throw runtime_error("not the same family unit can not convert41");
-        else{
+        
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             if(p1>p2 || p1<p2){
                 return false;
             }
             return true;
-        }
         
     }
     bool PhysicalNumber::operator!=(const PhysicalNumber& other){ //using == operator
