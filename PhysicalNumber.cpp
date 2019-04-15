@@ -6,8 +6,14 @@ using namespace std;
 using namespace ariel;
 
     //constructors
-    PhysicalNumber::PhysicalNumber(double number,Unit unit):num(number),u(unit){}
-    PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn):num(pn.num),u(pn.u){}
+    PhysicalNumber::PhysicalNumber(double number,Unit unit){
+         this->u=unit;
+        this->num=number;
+    }
+    PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn){
+        this->u=pn.u;
+        this->num=pn.num;
+    }
     
     //A+B
     const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1)const{
