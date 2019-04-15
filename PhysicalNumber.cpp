@@ -39,17 +39,22 @@ using namespace ariel;
     //A=A-B
 	PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber &p1){
         PhysicalNumber pn =(*this-p1);//using -operator we wrote
-        num =pn.num;
+        
+        this->num =pn.num;
         
         return *this;	
     }
     //+A
     PhysicalNumber PhysicalNumber::operator+(){// Unari
-        return *this; //stay the same
+        if(this->num <0){
+            return PhysicalNumber(num*(-1),u);
+        }
+        return *this;
     }
     //-A 
 	PhysicalNumber PhysicalNumber::operator-(){// Unari
-        return PhysicalNumber(-num,u); //the num turns minus signed
+    
+            return PhysicalNumber(num*(-1),u); //the num turns minus signed
     } 
 
     bool PhysicalNumber::operator>(const PhysicalNumber &other){
@@ -73,7 +78,7 @@ using namespace ariel;
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
             double ans=unit_Converter(p1,p2);
-            if((this->num)<ans) return true;
+            return this->num<ans;
         
          return false;
         }
@@ -84,7 +89,7 @@ using namespace ariel;
         else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
-            if(p1>p2 && p1==p2){
+            if(p1>p2 || p1==p2){
                 return true;
             }
             return false;
@@ -98,8 +103,8 @@ using namespace ariel;
             else{
             PhysicalNumber p1=PhysicalNumber(this->num,this->u);
             PhysicalNumber p2=PhysicalNumber(other.num,other.u);
-            if(p1<p2 && p1==p2){
-                return true;
+            if(p1 == p2 || p1<p2){
+               return true;
             }
             return false;
         }
