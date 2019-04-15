@@ -10,7 +10,7 @@ using namespace ariel;
     PhysicalNumber::PhysicalNumber(const PhysicalNumber& pn):num(pn.num),u(pn.u){}
     
     //A+B
-    const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& p1){
+    PhysicalNumber const PhysicalNumber::operator+(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
         if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert18");
         else{
@@ -20,7 +20,7 @@ using namespace ariel;
         }
     }
     //A-B
-	const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& p1){
+	 PhysicalNumber const PhysicalNumber::operator-(const PhysicalNumber& p1){
         //check if there is a reason to throw and exception
 	   if(this->sameUnit(p1)==false) throw runtime_error("not the same family unit can not convert19");
         else{
@@ -182,47 +182,107 @@ using namespace ariel;
 
 
 std::istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
-    string str;
-    long double d;
-    ios::pos_type sp = is.tellg();
-    if(!(is >> d) || !(checkInputUnit(is, pn))) {
-        auto es = is.rdstate();
-        is.clear();
-        is.seekg(sp);
-        is.clear(es);
-    }
-    else {
-        pn.setData(d);
-    }
-    
+    std::string input;
+
+// remember place for rewinding
+std::ios::pos_type startPosition = is.tellg();
+
+is >> input;
+
+Unit new_type; // Answers
+double new_Value; // Ansers
+
+int f_index = input.find('[');
+int l_index = input.find(']');
+
+if(f_index == -1 || l_index == -1 || f_index >= l_index) 
+{
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
     return is;
 }
-void PhysicalNumber::setData(double d) { num = d; }
-void PhysicalNumber::setUnit(Unit u) { u = u; }
-istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
-    string s;
-    int i, j;
-    is >> s;
-    i = s.find('[');
-    j = s.find(']');
-    if(!is) { return is; }
-    if((i == -1) || (j == -1)) { 
-        is.setstate(ios::failbit);
-        return is; 
-    }
-    s = s.substr(i+1, j-1);
-    if(s.compare("km") == 0) { pn.setUnit(Unit::KM); }
-    else if(s.compare("m") == 0) { pn.setUnit(Unit::M); }
-    else if(s.compare("cm") == 0) { pn.setUnit(Unit::M); }
-    else if(s.compare("ton") == 0) { pn.setUnit(Unit::TON); }
-    else if(s.compare("kg") == 0) { pn.setUnit(Unit::KG); }
-    else if(s.compare("g") == 0) { pn.setUnit(Unit::G); }
-    else if(s.compare("hour") == 0) { pn.setUnit(Unit::HOUR); }
-    else if(s.compare("min") == 0) { pn.setUnit(Unit::MIN); }
-    else if(s.compare("sec") == 0) { pn.setUnit(Unit::SEC); }
-    else{ is.setstate(ios:: failbit); }
 
+std::string numbers = input.substr(0,f_index);
+std::string s_type = input.substr(f_index+1,l_index - f_index - 1 );
+
+try
+{
+    new_Value = stod(numbers);   
+}
+catch(std::exception& e)
+{
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
     return is;
+}
+
+if( s_type.compare("km") == 0 ) new_type = Unit::KM; 
+else if( s_type.compare("m") == 0 ) new_type = Unit::M; 
+else if( s_type.compare("cm") == 0 ) new_type = Unit::CM; 
+
+else if( s_type.compare("ton") == 0 ) new_type = Unit::TON; 
+else if( s_type.compare("kg") == 0 ) new_type = Unit::KG; 
+else if( s_type.compare("g") == 0 ) new_type = Unit::G; 
+
+else if( s_type.compare("hour") == 0 ) new_type = Unit::HOUR; 
+else if( s_type.compare("min") == 0 ) new_type = Unit::MIN; 
+else if( s_type.compare("sec") == 0 ) new_type = Unit::SEC;
+else {
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
+    return is;
+}
+
+pn.u = new_type;
+pn.num = new_Value;
+return is;
+//     string str;
+//     long double d;
+//     ios::pos_type sp = is.tellg();
+//     if(!(is >> d) || !(checkInputUnit(is, pn))) {
+//         auto es = is.rdstate();
+//         is.clear();
+//         is.seekg(sp);
+//         is.clear(es);
+//     }
+//     else {
+//         pn.setData(d);
+//     }
+    
+//     return is;
+// }
+// void PhysicalNumber::setData(double d) { num = d; }
+// void PhysicalNumber::setUnit(Unit u) { u = u; }
+// istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
+//     string s;
+//     int i, j;
+//     is >> s;
+//     i = s.find('[');
+//     j = s.find(']');
+//     if(!is) { return is; }
+//     if((i == -1) || (j == -1)) { 
+//         is.setstate(ios::failbit);
+//         return is; 
+//     }
+//     s = s.substr(i+1, j-1);
+//     if(s.compare("km") == 0) { pn.setUnit(Unit::KM); }
+//     else if(s.compare("m") == 0) { pn.setUnit(Unit::M); }
+//     else if(s.compare("cm") == 0) { pn.setUnit(Unit::M); }
+//     else if(s.compare("ton") == 0) { pn.setUnit(Unit::TON); }
+//     else if(s.compare("kg") == 0) { pn.setUnit(Unit::KG); }
+//     else if(s.compare("g") == 0) { pn.setUnit(Unit::G); }
+//     else if(s.compare("hour") == 0) { pn.setUnit(Unit::HOUR); }
+//     else if(s.compare("min") == 0) { pn.setUnit(Unit::MIN); }
+//     else if(s.compare("sec") == 0) { pn.setUnit(Unit::SEC); }
+//     else{ is.setstate(ios:: failbit); }
+
+//     return is;
 }
 
 //private functions:
