@@ -178,8 +178,8 @@ using namespace ariel;
     }
 
 
-std::istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
-    std::string input;
+istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
+    string input;
 
 // remember place for rewinding
 std::ios::pos_type startPosition = is.tellg();
