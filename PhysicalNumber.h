@@ -23,14 +23,14 @@ class PhysicalNumber{
     void setData(double d);
     void setUnit(Unit u);
 
-     PhysicalNumber operator+(const PhysicalNumber& p1)const; 
-	 PhysicalNumber operator-(const PhysicalNumber& p1)const;
+    PhysicalNumber operator+(const PhysicalNumber& p1)const; 
+	PhysicalNumber operator-(const PhysicalNumber& p1)const;
 	PhysicalNumber& operator+=(const PhysicalNumber& p1);
 	PhysicalNumber& operator-=(const PhysicalNumber& p1);
 	PhysicalNumber& operator=(const PhysicalNumber& p1);
 
-     PhysicalNumber operator+()const; // Unari
-	 PhysicalNumber operator-()const; // Unari
+    PhysicalNumber operator+()const; // Unari
+	PhysicalNumber operator-()const; // Unari
 
     bool operator> (const PhysicalNumber& p1) ;
     bool operator< (const PhysicalNumber& p1) ;
@@ -51,11 +51,5 @@ class PhysicalNumber{
     };
      ostream& operator<< (ostream& os, const PhysicalNumber& c);//output
      istream& operator>> (istream& is, PhysicalNumber& c);//input
-    //  bool operator> (const PhysicalNumber& p1) ;
-    // bool operator< (const PhysicalNumber& p1) ;
-    // bool operator>= (const PhysicalNumber& p1) ;
-    // bool operator<= (const PhysicalNumber& p1) ;
-    // bool operator== (const PhysicalNumber& p1,const PhysicalNumber& p2) ;
-    // bool operator!= (const PhysicalNumber& p1) ;
 }
 #endif

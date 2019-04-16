@@ -84,7 +84,6 @@ int main() {
     .CHECK_OUTPUT(b1+b4, "362[sec]")                               //2[sec] + 0.1[hour]
     .CHECK_OUTPUT(b3+b2, "4.05[hour]")                             //4[hour] + 3[min]
     .CHECK_OUTPUT(c1+c2, "3002[g]")                                //2[g] + 3[kg]
-    //.CHECK_OUTPUT(c1+c3, "4000002[g]")                             //2[g] + 4[ton]
     .CHECK_OUTPUT(c1+c4, "100002[g]")                              //2[g] + 0.1[ton]
     .CHECK_OUTPUT(c2+c1, "3.002[kg]")                              //3[kg] + 2[g]
 
@@ -226,24 +225,26 @@ int main() {
     .CHECK_OUTPUT(a4++,"1.1[km]")                                     //0.1[km]++ = 1.1[km]
     .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)++,"61[min]")           //60[min]++ = 61[min]
     .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)++,"100[sec]")          //99[min]++ = 100[sec]
+    .CHECK_OUTPUT(PhysicalNumber(199999,Unit::SEC)++,"200000[sec]")          //99[min]++ = 100[sec]
+       
 
     
     .setname("Operator '--(postfix)' unary - Compatible dimensions")
     .CHECK_OUTPUT(a1--,"2[cm]")                                       //3[cm]-- = 2[cm]
-    .CHECK_OUTPUT(a2--,"3[km]")                                       //4[km]-- = 3[cm]
+    .CHECK_OUTPUT(a2--,"3[km]")                                       //4[km]-- = 3[km]
     .CHECK_OUTPUT(a3--,"4[m]")                                        //5[m]-- = 4[m]
     .CHECK_OUTPUT(a4--,"0.1[km]")                                     //1.1[km]-- = 0.1[km]
     .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)--,"59[min]")           //60[min]-- = 59[min]
-   // .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)--,"98[min]")          //99[min]-- = 98[min]
+    .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)--,"98[sec]")          //99[min]-- = 98[sec]
 
 
     .setname("Operator '(prefix)++' unary - Compatible dimensions")
     .CHECK_OUTPUT(++a1,"3[cm]")                                       //++2[cm] = 3[cm]
-    .CHECK_OUTPUT(++a2,"4[km]")                                       //++3[km] = 4[cm]
+    .CHECK_OUTPUT(++a2,"4[km]")                                       //++3[km] = 4[km]
     .CHECK_OUTPUT(++a3,"5[m]")                                        //++4[m] = 5[m]
     .CHECK_OUTPUT(++a4,"1.1[km]")                                     //++0.1[km] = 1.1[km]
     .CHECK_OUTPUT(++PhysicalNumber(60,Unit::MIN),"61[min]")           //++60[min] = 61[min]
-   // .CHECK_OUTPUT(++PhysicalNumber(99,Unit::SEC),"100[min]")          //++99[min] = 100[min]
+    .CHECK_OUTPUT(++PhysicalNumber(99,Unit::SEC),"100[sec]")          //++99[sec] = 100[sec]
 
 
     .setname("Operator '(prefix)--' unary - Compatible dimensions")
@@ -252,7 +253,7 @@ int main() {
     .CHECK_OUTPUT(--a3,"4[m]")                                        //--5[m] = 4[m]
     .CHECK_OUTPUT(--a4,"0.1[km]")                                     //--1.1[km] = 0.1[km]
     .CHECK_OUTPUT(--PhysicalNumber(60,Unit::MIN),"59[min]")           //--60[min] = 59[min]
-   // .CHECK_OUTPUT(--PhysicalNumber(99,Unit::SEC),"98[min]")           //--99[min] = 98[min]
+    .CHECK_OUTPUT(--PhysicalNumber(99,Unit::SEC),"98[sec]")           //--99[sec] = 98[sec]
 
 
     .setname("Operator '+' unary - Compatible dimensions")
@@ -264,7 +265,6 @@ int main() {
     .setname("Operator '-' unary - Compatible dimensions")
     .CHECK_EQUAL(-PhysicalNumber(1,Unit::MIN),PhysicalNumber(-1,Unit::MIN))//-1[min] = -1[min]
     .CHECK_EQUAL(-c2,PhysicalNumber(-3,Unit::KG))                          //-3[kg] = -3[kg]
-    //.CHECK_EQUAL(-a4,PhysicalNumber(-0.1,Unit::KM))                        //-0.1[km] = -0.1[km]
 
 
     .setname("Input - Compatible dimensions")
@@ -280,9 +280,6 @@ int main() {
     .CHECK_OUTPUT(z,"700[kg]")
     .CHECK_OK(istringstream("5[m]") >> y)
     .CHECK_OUTPUT(y,"5[m]")
-
-
-
 
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();

@@ -144,7 +144,7 @@ using namespace ariel;
     PhysicalNumber PhysicalNumber::operator++(int){//i++ first print and then add
         PhysicalNumber pn(*this);
         num++;
-        return *this;
+        return pn;
     }
     //--A
     PhysicalNumber PhysicalNumber::operator--(){//--i first subtracting and then print
@@ -156,7 +156,7 @@ using namespace ariel;
         PhysicalNumber pn(*this);
         num--;
         
-     return *this;
+     return pn;
     }
     
    ostream &ariel::operator<< (ostream& os, const PhysicalNumber& c){//output
@@ -256,47 +256,7 @@ else {
 pn.u = new_type;
 pn.num = new_Value;
 return is;
-//     string str;
-//     long double d;
-//     ios::pos_type sp = is.tellg();
-//     if(!(is >> d) || !(checkInputUnit(is, pn))) {
-//         auto es = is.rdstate();
-//         is.clear();
-//         is.seekg(sp);
-//         is.clear(es);
-//     }
-//     else {
-//         pn.setData(d);
-//     }
-    
-//     return is;
-// }
-// void PhysicalNumber::setData(double d) { num = d; }
-// void PhysicalNumber::setUnit(Unit u) { u = u; }
-// istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
-//     string s;
-//     int i, j;
-//     is >> s;
-//     i = s.find('[');
-//     j = s.find(']');
-//     if(!is) { return is; }
-//     if((i == -1) || (j == -1)) { 
-//         is.setstate(ios::failbit);
-//         return is; 
-//     }
-//     s = s.substr(i+1, j-1);
-//     if(s.compare("km") == 0) { pn.setUnit(Unit::KM); }
-//     else if(s.compare("m") == 0) { pn.setUnit(Unit::M); }
-//     else if(s.compare("cm") == 0) { pn.setUnit(Unit::M); }
-//     else if(s.compare("ton") == 0) { pn.setUnit(Unit::TON); }
-//     else if(s.compare("kg") == 0) { pn.setUnit(Unit::KG); }
-//     else if(s.compare("g") == 0) { pn.setUnit(Unit::G); }
-//     else if(s.compare("hour") == 0) { pn.setUnit(Unit::HOUR); }
-//     else if(s.compare("min") == 0) { pn.setUnit(Unit::MIN); }
-//     else if(s.compare("sec") == 0) { pn.setUnit(Unit::SEC); }
-//     else{ is.setstate(ios:: failbit); }
 
-//     return is;
 }
 
 //private functions:
