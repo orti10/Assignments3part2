@@ -15,9 +15,9 @@ class PhysicalNumber{
   
     double unit_Converter(PhysicalNumber& p1 ,PhysicalNumber& p2)const;
     friend istream& checkInputUnit(istream& is, PhysicalNumber& pn);
-    
+    bool sameUnit(const PhysicalNumber& p1);
+
     public:
-    friend  bool sameUnit(const PhysicalNumber& p1,const PhysicalNumber& p2);
     PhysicalNumber(const double number,const Unit unit);//consts 2
     PhysicalNumber(const PhysicalNumber& pn);
     void setData(double d);
@@ -36,7 +36,7 @@ class PhysicalNumber{
     bool operator< (const PhysicalNumber& p1) ;
     bool operator>= (const PhysicalNumber& p1) ;
     bool operator<= (const PhysicalNumber& p1) ;
-    friend bool operator== (const PhysicalNumber& p1,const PhysicalNumber& p2) ;
+    bool operator== (const PhysicalNumber& p1) ;
     bool operator!= (const PhysicalNumber& p1) ;
 
     PhysicalNumber operator++();//++i
@@ -55,8 +55,7 @@ class PhysicalNumber{
     // bool operator< (const PhysicalNumber& p1) ;
     // bool operator>= (const PhysicalNumber& p1) ;
     // bool operator<= (const PhysicalNumber& p1) ;
-     bool operator== (const PhysicalNumber& p1,const PhysicalNumber& p2) ;
+    // bool operator== (const PhysicalNumber& p1,const PhysicalNumber& p2) ;
     // bool operator!= (const PhysicalNumber& p1) ;
-bool sameUnit(const PhysicalNumber& p1,const PhysicalNumber& p2);
 }
 #endif
