@@ -217,27 +217,27 @@ int main() {
     .CHECK_EQUAL(c3>c2,true)                                          //4[ton] > 3[kg]
     .CHECK_EQUAL(c4>c1,true)                                          //0.1[ton] > 2[g]
 
-
+     //i++ first print and then add
     .setname("Operator '++(postfix)' unary - Compatible dimensions")
-    .CHECK_OUTPUT(a1++,"3[cm]")                                       //2[cm]++ = 3[cm]
-    .CHECK_OUTPUT(a2++,"4[km]")                                       //3[km]++ = 4[cm]
-    .CHECK_OUTPUT(a3++,"5[m]")                                        //4[m]++ = 5[m]
-    .CHECK_OUTPUT(a4++,"1.1[km]")                                     //0.1[km]++ = 1.1[km]
-    .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)++,"61[min]")           //60[min]++ = 61[min]
-    .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)++,"100[sec]")          //99[min]++ = 100[sec]
-    .CHECK_OUTPUT(PhysicalNumber(199999,Unit::SEC)++,"200000[sec]")          //99[min]++ = 100[sec]
+    .CHECK_OUTPUT(a1++,"2[cm]")                                       //2[cm]++ = first prints:2[cm]and then add to 3[cm]
+    .CHECK_OUTPUT(a2++,"3[km]")                                       //3[km]++ = first prints:3[km]and then add to 4[km]
+    .CHECK_OUTPUT(a3++,"4[m]")                                        //4[m]++ = first prints:4[m]and then add to 5[m]
+    .CHECK_OUTPUT(a4++,"0.1[km]")                                     //0.1[km]++ = first prints:0.1[km]and then add to 1.1[km]
+    .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)++,"60[min]")           //60[min]++ first prints:60[min]and then add to 61[min]
+    .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)++,"99[sec]")          //99[sec]++ = first prints:99[sec]and then add to 100[sec]
+    .CHECK_OUTPUT(PhysicalNumber(199999,Unit::SEC)++,"199999[sec]")   //199999[sec]++ = first prints:199999[sec]and then add to 2000000[sec]
        
 
     
     .setname("Operator '--(postfix)' unary - Compatible dimensions")
-    .CHECK_OUTPUT(a1--,"2[cm]")                                       //3[cm]-- = 2[cm]
-    .CHECK_OUTPUT(a2--,"3[km]")                                       //4[km]-- = 3[km]
-    .CHECK_OUTPUT(a3--,"4[m]")                                        //5[m]-- = 4[m]
-    .CHECK_OUTPUT(a4--,"0.1[km]")                                     //1.1[km]-- = 0.1[km]
-    .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)--,"59[min]")           //60[min]-- = 59[min]
-    .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)--,"98[sec]")          //99[min]-- = 98[sec]
+    .CHECK_OUTPUT(a1--,"3[cm]")                                       //3[cm]-- =  first prints:3[cm]and then det down to 2[cm]
+    .CHECK_OUTPUT(a2--,"4[km]")                                       //4[km]-- = first prints:4[km]and then det down to 3[km]
+    .CHECK_OUTPUT(a3--,"5[m]")                                        //5[m]-- = first prints:5[cm]and then det down to 4[cm]
+    .CHECK_OUTPUT(a4--,"1.1[km]")                                     //1.1[km]-- = first prints:1.1[km]and then det down to 0.1[km]
+    .CHECK_OUTPUT(PhysicalNumber(60,Unit::MIN)--,"60[min]")           //60[min]-- = first prints:60[min]and then det down to 59[min]
+    .CHECK_OUTPUT(PhysicalNumber(99,Unit::SEC)--,"99[sec]")          //99[sec]-- = first prints:99[sec]and then det down to 98[sec]
 
-
+     //++i first add and then print
     .setname("Operator '(prefix)++' unary - Compatible dimensions")
     .CHECK_OUTPUT(++a1,"3[cm]")                                       //++2[cm] = 3[cm]
     .CHECK_OUTPUT(++a2,"4[km]")                                       //++3[km] = 4[km]
@@ -249,7 +249,7 @@ int main() {
 
     .setname("Operator '(prefix)--' unary - Compatible dimensions")
     .CHECK_OUTPUT(--a1,"2[cm]")                                       //--3[cm] = 2[cm]
-    .CHECK_OUTPUT(--a2,"3[km]")                                       //--4[km] = 3[cm]
+    .CHECK_OUTPUT(--a2,"3[km]")                                       //--4[km] = 3[km]
     .CHECK_OUTPUT(--a3,"4[m]")                                        //--5[m] = 4[m]
     .CHECK_OUTPUT(--a4,"0.1[km]")                                     //--1.1[km] = 0.1[km]
     .CHECK_OUTPUT(--PhysicalNumber(60,Unit::MIN),"59[min]")           //--60[min] = 59[min]
